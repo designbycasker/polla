@@ -1,0 +1,29 @@
+# dependencies
+community/node_modules
+community/.pnp
+community/.pnp.*
+
+# Next.js build
+community/.next/
+community/out/
+community/.vercel
+
+# env files (secrets)
+community/.env*
+.env*
+
+# Claude local settings (contains API tokens)
+.claude/settings.local.json
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+
+# TypeScript
+community/*.tsbuildinfo
+community/next-env.d.ts
+
+# design-system build artifacts
+design-system/node_modules

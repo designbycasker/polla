@@ -1,0 +1,124 @@
+.page {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: var(--color-semantic-background-default);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--color-semantic-background-default);
+  border-bottom: 1px solid var(--color-semantic-border-default);
+}
+
+.headerTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-semantic-text-strong);
+}
+
+.writeBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  background: var(--color-semantic-fill-brand);
+  color: var(--color-base-static-white);
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.categories {
+  display: flex;
+  gap: 8px;
+  padding: 12px 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.categories::-webkit-scrollbar { display: none; }
+
+.categoryChip {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--color-semantic-background-lower);
+  color: var(--color-semantic-text-secondary);
+  transition: all 0.1s;
+}
+
+.categoryChipActive {
+  background: var(--color-semantic-fill-brand);
+  color: var(--color-base-static-white);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 80px 0;
+  color: var(--color-semantic-text-tertiary);
+  font-size: 15px;
+}
+
+.list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 16px 100px;
+}
+
+/* Tab Bar */
+.tabBar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+  background: var(--color-semantic-background-elevated);
+  border-top: 1px solid var(--color-semantic-border-default);
+  z-index: 100;
+}
+
+.tabItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 16px;
+  color: var(--color-semantic-icon-tertiary);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.tabItem.active { color: var(--color-semantic-icon-brand); }
+
+.tabItemCenter {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-semantic-fill-brand);
+  color: var(--color-base-static-white);
+  border-radius: 50%;
+  margin-top: -16px;
+}

@@ -1,0 +1,44 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--color-semantic-background-lower);
+  color: var(--color-semantic-text-strong);
+  min-height: 100dvh;
+}
+
+#app-shell {
+  position: relative;
+  margin: 0 auto;
+  max-width: 768px;
+  min-height: 100dvh;
+  background: var(--color-semantic-background-default);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input, textarea {
+  font-family: inherit;
+}

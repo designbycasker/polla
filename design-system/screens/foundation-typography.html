@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundation / Typography</title>
+  <link rel="stylesheet" href="../variables.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard Variable', 'Pretendard', -apple-system, sans-serif;
+      background: var(--color-semantic-background-default);
+      color: var(--color-semantic-text-strong);
+      padding: 80px;
+    }
+
+    /* ── 공통 레이아웃 ── */
+    .page-title {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--color-semantic-text-strong);
+      margin-bottom: 6px;
+    }
+    .page-subtitle {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--color-semantic-text-secondary);
+      margin-bottom: 64px;
+    }
+
+    .group { margin-bottom: 48px; }
+    .group-header { margin-bottom: 4px; }
+    .divider {
+      height: 1px;
+      background: var(--color-semantic-border-default);
+      margin-bottom: 12px;
+    }
+    .group-label {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.35;
+      color: var(--color-semantic-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 10px 0;
+    }
+    .row-name {
+      width: 200px;
+      flex-shrink: 0;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-semantic-text-tertiary);
+    }
+    .row-sample { flex: 1; min-width: 0; color: var(--color-semantic-text-strong); }
+    .row-spec {
+      width: 160px;
+      flex-shrink: 0;
+      font-size: 12px;
+      font-weight: 400;
+      text-align: right;
+      color: var(--color-semantic-text-tertiary);
+      white-space: pre;
+    }
+
+    /* ── 타이포 스케일 ── */
+    .display-large  { font-size: 30px; font-weight: 700; line-height: 1.35; }
+    .display-medium { font-size: 28px; font-weight: 700; line-height: 1.35; }
+    .display-small  { font-size: 26px; font-weight: 700; line-height: 1.35; }
+
+    .title-large        { font-size: 24px; font-weight: 700; line-height: 1.35; }
+    .title-medium       { font-size: 22px; font-weight: 700; line-height: 1.35; }
+    .title-small        { font-size: 20px; font-weight: 700; line-height: 1.35; }
+    .title-small-weak   { font-size: 20px; font-weight: 600; line-height: 1.35; }
+    .title-small-xweak  { font-size: 20px; font-weight: 500; line-height: 1.35; }
+    .title-xsmall       { font-size: 17px; font-weight: 700; line-height: 1.5; }
+    .title-xsmall-weak  { font-size: 17px; font-weight: 600; line-height: 1.5; }
+    .title-xsmall-xweak { font-size: 17px; font-weight: 500; line-height: 1.5; }
+
+    .body-large         { font-size: 19px; font-weight: 400; line-height: 1.5; }
+    .body-medium        { font-size: 17px; font-weight: 400; line-height: 1.5; }
+    .body-medium-strong { font-size: 17px; font-weight: 500; line-height: 1.5; }
+    .body-xsmall        { font-size: 13px; font-weight: 400; line-height: 1.5; }
+
+    .subtext-large         { font-size: 15px; font-weight: 400; line-height: 1.35; }
+    .subtext-medium        { font-size: 13px; font-weight: 400; line-height: 1.5; }
+    .subtext-medium-strong { font-size: 13px; font-weight: 500; line-height: 1.35; }
+    .subtext-small         { font-size: 12px; font-weight: 400; line-height: 1.35; }
+
+    .label-large         { font-size: 19px; font-weight: 600; line-height: 1.252; }
+    .label-medium-strong { font-size: 17px; font-weight: 700; line-height: 1.252; }
+    .label-medium        { font-size: 17px; font-weight: 600; line-height: 1.252; }
+    .label-medium-weak   { font-size: 17px; font-weight: 500; line-height: 1.252; }
+    .label-small-strong  { font-size: 15px; font-weight: 700; line-height: 1.252; }
+    .label-small         { font-size: 15px; font-weight: 600; line-height: 1.252; }
+    .label-small-weak    { font-size: 15px; font-weight: 500; line-height: 1.252; }
+    .label-xsmall        { font-size: 13px; font-weight: 600; line-height: 1.252; }
+    .label-xsmall-weak   { font-size: 13px; font-weight: 500; line-height: 1.252; }
+
+    /* ── 컬러 유스케이스 섹션 ── */
+    .section-title {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--color-semantic-text-strong);
+      margin-top: 80px;
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--color-semantic-text-secondary);
+      margin-bottom: 48px;
+    }
+
+    .color-group { margin-bottom: 48px; }
+    .color-group-label {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.35;
+      color: var(--color-semantic-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-semantic-border-default);
+    }
+    .color-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .color-card {
+      width: 200px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--color-semantic-border-default);
+    }
+    .color-swatch {
+      height: 64px;
+      width: 100%;
+    }
+    .color-info {
+      padding: 12px 14px;
+      background: var(--color-semantic-background-default);
+    }
+    .color-token {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-semantic-text-secondary);
+      margin-bottom: 4px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+    .color-usecase {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-semantic-text-tertiary);
+      line-height: 1.5;
+    }
+
+    /* 스와치 컬러 */
+    .swatch-text-strong   { background: var(--color-semantic-text-strong); }
+    .swatch-text-primary  { background: var(--color-semantic-text-primary); }
+    .swatch-text-secondary { background: var(--color-semantic-text-secondary); }
+    .swatch-text-tertiary  { background: var(--color-semantic-text-tertiary); }
+
+    .swatch-fill-brand     { background: var(--color-semantic-fill-brand); }
+    .swatch-fill-brandweak { background: var(--color-semantic-fill-brandWeak); border: 1px solid var(--color-semantic-border-default); }
+    .swatch-text-brand     { background: var(--color-semantic-text-brand); }
+    .swatch-icon-brand     { background: var(--color-semantic-icon-brand); }
+
+    .swatch-fill-danger     { background: var(--color-semantic-fill-danger); }
+    .swatch-fill-dangerweak { background: var(--color-semantic-fill-dangerWeak); border: 1px solid var(--color-semantic-border-default); }
+    .swatch-text-danger     { background: var(--color-semantic-text-danger); }
+    .swatch-icon-danger     { background: var(--color-semantic-icon.danger, var(--color-semantic-fill-danger)); }
+
+    /* 유스케이스 예시 */
+    .usecase-examples {
+      margin-top: 24px;
+      padding: 24px;
+      border-radius: 12px;
+      background: var(--color-semantic-background-lower);
+      border: 1px solid var(--color-semantic-border-default);
+    }
+    .usecase-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-semantic-text-tertiary);
+      margin-bottom: 16px;
+    }
+    .usecase-demo-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .usecase-demo-row:last-child { margin-bottom: 0; }
+    .demo-tag {
+      font-size: 11px;
+      font-weight: 500;
+      width: 120px;
+      flex-shrink: 0;
+      color: var(--color-semantic-text-tertiary);
+    }
+    .demo-content { font-size: 14px; line-height: 1.4; }
+
+    /* 강조 텍스트 */
+    .text-strong    { color: var(--color-semantic-text-strong); font-weight: 700; }
+    .text-primary   { color: var(--color-semantic-text-primary); font-weight: 600; }
+    .text-secondary { color: var(--color-semantic-text-secondary); }
+    .text-tertiary  { color: var(--color-semantic-text-tertiary); }
+    .text-brand     { color: var(--color-semantic-text-brand); font-weight: 600; }
+    .text-danger    { color: var(--color-semantic-text-danger); font-weight: 600; }
+
+    .btn-brand {
+      display: inline-block;
+      background: var(--color-semantic-fill-brand);
+      color: var(--color-semantic-text-onFillBrand);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+    }
+    .btn-danger {
+      display: inline-block;
+      background: var(--color-semantic-fill-danger);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+    }
+    .badge-brand {
+      display: inline-block;
+      background: var(--color-semantic-fill-brandWeak);
+      color: var(--color-semantic-text-brand);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+    .badge-danger {
+      display: inline-block;
+      background: var(--color-semantic-fill-dangerWeak);
+      color: var(--color-semantic-text-danger);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── TYPOGRAPHY ── -->
+  <p class="page-title">Typography</p>
+  <p class="page-subtitle">Pretendard · 모든 텍스트 색상은 TDS 시맨틱 토큰 참조</p>
+
+  <!-- DISPLAY -->
+  <div class="group">
+    <div class="group-header">
+      <div class="divider"></div>
+      <p class="group-label">Display</p>
+    </div>
+    <div class="row">
+      <span class="row-name">display.large</span>
+      <span class="row-sample display-large">Design System</span>
+      <span class="row-spec">30px · 700 · 1.35</span>
+    </div>
+    <div class="row">
+      <span class="row-name">display.medium</span>
+      <span class="row-sample display-medium">Design System</span>
+      <span class="row-spec">28px · 700 · 1.35</span>
+    </div>
+    <div class="row">
+      <span class="row-name">display.small</span>
+      <span class="row-sample display-small">Design System</span>
+      <span class="row-spec">26px · 700 · 1.35</span>
+    </div>
+  </div>
+
+  <!-- TITLE -->
+  <div class="group">
+    <div class="group-header">
+      <div class="divider"></div>
+      <p class="group-label">Title</p>
+    </div>
+    <div class="row">
+      <span class="row-name">title.large</span>
+      <span class="row-sample title-large">Typography Scale</span>
+      <span class="row-spec">24px · 700 · 1.35</span>
+    </div>
+    <div class="row">
+      <span class="row-name">title.medium</span>
+      <span class="row-sample title-medium">Typography Scale</span>
+      <span class="row-spec">22px · 700 · 1.35</span>
+    </div>
+    <div class="row">
+      <span class="row-name">title.small</span>
+      <span class="row-sample title-small">The quick brown fox</span>
+      <span class="row-spec">20px · 700 · 1.35</span>
+    </div>
+    <div class="row">
+      <span class="row-name">title.smallWeak</span>
+      <span class="row-sample title-small-weak">The quick brown fox</span>
+      <span class="row-spec">20px · 600 · 1.35</span>
+    </div>
+    <div class="row">
+      <span class="row-name">title.smallXWeak</span>
+      <span class="row-sample title-small-xweak">The quick brown fox</span>
+      <span class="row-spec">20px · 500 · 1.35</span>
+    </div>
+    <div class="row">
+      <span class="row-name">title.xSmall</span>
+      <span class="row-sample title-xsmall">The quick brown fox</span>
+      <span class="row-spec">17px · 700 · 1.5</span>
+    </div>
+    <div class="row">
+      <span class="row-name">title.xSmallWeak</span>
+      <span class="row-sample title-xsmall-weak">The quick brown fox</span>
+      <span class="row-spec">17px · 600 · 1.5</span>
+    </div>
+    <div class="row">
+      <span class="row-name">title.xSmallXWeak</span>
+      <span class="row-sample title-xsmall-xweak">The quick brown fox</span>
+      <span class="row-spec">17px · 500 · 1.5</span>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="group">
+    <div class="group-header">
+      <div class="divider"></div>
+      <p class="group-label">Body</p>
+    </div>
+    <div class="row">
+      <span class="row-name">body.large</span>
+      <span class="row-sample body-large">The quick brown fox</span>
+      <span class="row-spec">19px · 400 · 1.5</span>
+    </div>
+    <div class="row">
+      <span class="row-name">body.medium</span>
+      <span class="row-sample body-medium">The quick brown fox</span>
+      <span class="row-spec">17px · 400 · 1.5</span>
+    </div>
+    <div class="row">
+      <span class="row-name">body.mediumStrong</span>
+      <span class="row-sample body-medium-strong">The quick brown fox</span>
+      <span class="row-spec">17px · 500 · 1.5</span>
+    </div>
+    <div class="row">
+      <span class="row-name">body.xSmall</span>
+      <span class="row-sample body-xsmall">Supporting text content</span>
+      <span class="row-spec">13px · 400 · 1.5</span>
+    </div>
+  </div>
+
+  <!-- SUBTEXT -->
+  <div class="group">
+    <div class="group-header">
+      <div class="divider"></div>
+      <p class="group-label">Subtext</p>
+    </div>
+    <div class="row">
+      <span class="row-name">subtext.large</span>
+      <span class="row-sample subtext-large">Supporting text content</span>
+      <span class="row-spec">15px · 400 · 1.35</span>
+    </div>
+    <div class="row">
+      <span class="row-name">subtext.medium</span>
+      <span class="row-sample subtext-medium">Supporting text content</span>
+      <span class="row-spec">13px · 400 · 1.5</span>
+    </div>
+    <div class="row">
+      <span class="row-name">subtext.mediumStrong</span>
+      <span class="row-sample subtext-medium-strong">Supporting text content</span>
+      <span class="row-spec">13px · 500 · 1.35</span>
+    </div>
+    <div class="row">
+      <span class="row-name">subtext.small</span>
+      <span class="row-sample subtext-small">Supporting text content</span>
+      <span class="row-spec">12px · 400 · 1.35</span>
+    </div>
+  </div>
+
+  <!-- LABEL -->
+  <div class="group">
+    <div class="group-header">
+      <div class="divider"></div>
+      <p class="group-label">Label</p>
+    </div>
+    <div class="row">
+      <span class="row-name">label.large</span>
+      <span class="row-sample label-large">The quick brown fox</span>
+      <span class="row-spec">19px · 600 · 1.252</span>
+    </div>
+    <div class="row">
+      <span class="row-name">label.mediumStrong</span>
+      <span class="row-sample label-medium-strong">The quick brown fox</span>
+      <span class="row-spec">17px · 700 · 1.252</span>
+    </div>
+    <div class="row">
+      <span class="row-name">label.medium</span>
+      <span class="row-sample label-medium">The quick brown fox</span>
+      <span class="row-spec">17px · 600 · 1.252</span>
+    </div>
+    <div class="row">
+      <span class="row-name">label.mediumWeak</span>
+      <span class="row-sample label-medium-weak">The quick brown fox</span>
+      <span class="row-spec">17px · 500 · 1.252</span>
+    </div>
+    <div class="row">
+      <span class="row-name">label.smallStrong</span>
+      <span class="row-sample label-small-strong">Supporting text content</span>
+      <span class="row-spec">15px · 700 · 1.252</span>
+    </div>
+    <div class="row">
+      <span class="row-name">label.small</span>
+      <span class="row-sample label-small">Supporting text content</span>
+      <span class="row-spec">15px · 600 · 1.252</span>
+    </div>
+    <div class="row">
+      <span class="row-name">label.smallWeak</span>
+      <span class="row-sample label-small-weak">Supporting text content</span>
+      <span class="row-spec">15px · 500 · 1.252</span>
+    </div>
+    <div class="row">
+      <span class="row-name">label.xSmall</span>
+      <span class="row-sample label-xsmall">Supporting text content</span>
+      <span class="row-spec">13px · 600 · 1.252</span>
+    </div>
+    <div class="row">
+      <span class="row-name">label.xSmallWeak</span>
+      <span class="row-sample label-xsmall-weak">Supporting text content</span>
+      <span class="row-spec">13px · 500 · 1.252</span>
+    </div>
+  </div>
+
+
+  <!-- ── COLOR USE CASES ── -->
+  <p class="section-title">Color Use Cases</p>
+  <p class="section-subtitle">각 컬러 그룹의 토큰과 사용 맥락 가이드</p>
+
+  <!-- 검정 / 회색 텍스트 -->
+  <div class="color-group">
+    <p class="color-group-label">검정 · 회색 — Text Hierarchy</p>
+    <div class="color-row">
+      <div class="color-card">
+        <div class="color-swatch swatch-text-strong"></div>
+        <div class="color-info">
+          <p class="color-token">text.strong</p>
+          <p class="color-usecase">제목, 본문 핵심 내용, 입력값. 가장 강한 강조.</p>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch swatch-text-primary"></div>
+        <div class="color-info">
+          <p class="color-token">text.primary</p>
+          <p class="color-usecase">일반 본문 텍스트. strong보다 한 단계 낮은 강도.</p>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch swatch-text-secondary"></div>
+        <div class="color-info">
+          <p class="color-token">text.secondary</p>
+          <p class="color-usecase">날짜, 카운트, 보조 설명. 배경 대비 중간 강도.</p>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch swatch-text-tertiary"></div>
+        <div class="color-info">
+          <p class="color-token">text.tertiary</p>
+          <p class="color-usecase">플레이스홀더, 비활성 라벨, 힌트 텍스트.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="usecase-examples">
+      <p class="usecase-label">사용 예시</p>
+      <div class="usecase-demo-row">
+        <span class="demo-tag">제목 (strong)</span>
+        <span class="demo-content text-strong">이재명 vs 김문수, 누가 더 잘할까요?</span>
+      </div>
+      <div class="usecase-demo-row">
+        <span class="demo-tag">본문 (primary)</span>
+        <span class="demo-content text-primary">선거까지 30일 남은 시점, 여론은 어떻게 바뀌었을까요.</span>
+      </div>
+      <div class="usecase-demo-row">
+        <span class="demo-tag">메타 (secondary)</span>
+        <span class="demo-content text-secondary">홍길동 · 42분 전 · 댓글 28</span>
+      </div>
+      <div class="usecase-demo-row">
+        <span class="demo-tag">힌트 (tertiary)</span>
+        <span class="demo-content text-tertiary">투표 후 결과를 확인할 수 있어요</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 블루 / 브랜드 -->
+  <div class="color-group">
+    <p class="color-group-label">블루 — Brand / Primary Action</p>
+    <div class="color-row">
+      <div class="color-card">
+        <div class="color-swatch swatch-fill-brand"></div>
+        <div class="color-info">
+          <p class="color-token">fill.brand</p>
+          <p class="color-usecase">CTA 버튼 배경, 활성 상태, 진행 바.</p>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch swatch-fill-brandweak"></div>
+        <div class="color-info">
+          <p class="color-token">fill.brandWeak</p>
+          <p class="color-usecase">선택된 칩/버튼 배경, 뱃지 배경, 하이라이트 영역.</p>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch swatch-text-brand"></div>
+        <div class="color-info">
+          <p class="color-token">text.brand</p>
+          <p class="color-usecase">링크 텍스트, 활성 탭 라벨, 선택된 옵션 텍스트.</p>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch swatch-icon-brand"></div>
+        <div class="color-info">
+          <p class="color-token">icon.brand</p>
+          <p class="color-usecase">활성 아이콘, 체크 아이콘, 브랜드 강조 아이콘.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="usecase-examples">
+      <p class="usecase-label">사용 예시</p>
+      <div class="usecase-demo-row">
+        <span class="demo-tag">CTA 버튼</span>
+        <span class="demo-content"><button class="btn-brand">투표하기</button></span>
+      </div>
+      <div class="usecase-demo-row">
+        <span class="demo-tag">선택된 칩</span>
+        <span class="demo-content"><span class="badge-brand">정치</span></span>
+      </div>
+      <div class="usecase-demo-row">
+        <span class="demo-tag">링크 / 강조</span>
+        <span class="demo-content text-brand">결과 자세히 보기 →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 빨강 / 위험 -->
+  <div class="color-group">
+    <p class="color-group-label">빨강 — Danger / Negative</p>
+    <div class="color-row">
+      <div class="color-card">
+        <div class="color-swatch swatch-fill-danger"></div>
+        <div class="color-info">
+          <p class="color-token">fill.danger</p>
+          <p class="color-usecase">삭제 버튼 배경, 치명적 오류 알림 배경.</p>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch swatch-fill-dangerweak"></div>
+        <div class="color-info">
+          <p class="color-token">fill.dangerWeak</p>
+          <p class="color-usecase">에러 메시지 배경, 경고 뱃지 배경.</p>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch swatch-text-danger"></div>
+        <div class="color-info">
+          <p class="color-token">text.danger</p>
+          <p class="color-usecase">에러 메시지 텍스트, 폼 유효성 경고, 부정 통계.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="usecase-examples">
+      <p class="usecase-label">사용 예시</p>
+      <div class="usecase-demo-row">
+        <span class="demo-tag">삭제 버튼</span>
+        <span class="demo-content"><button class="btn-danger">게시글 삭제</button></span>
+      </div>
+      <div class="usecase-demo-row">
+        <span class="demo-tag">에러 뱃지</span>
+        <span class="demo-content"><span class="badge-danger">오류</span></span>
+      </div>
+      <div class="usecase-demo-row">
+        <span class="demo-tag">에러 텍스트</span>
+        <span class="demo-content text-danger">이미 투표한 항목입니다</span>
+      </div>
+      <div class="usecase-demo-row">
+        <span class="demo-tag">폼 유효성</span>
+        <span class="demo-content text-danger">1924년~2016년 사이로 입력해주세요</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

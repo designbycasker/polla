@@ -1,0 +1,53 @@
+{
+  "font": {
+    "family": {
+      "base": { "value": "Pretendard", "type": "fontFamily" }
+    },
+    "weight": {
+      "regular":  { "value": 400, "type": "fontWeight" },
+      "medium":   { "value": 500, "type": "fontWeight" },
+      "semibold": { "value": 600, "type": "fontWeight" },
+      "bold":     { "value": 700, "type": "fontWeight" }
+    }
+  },
+  "typography": {
+    "display": {
+      "large":  { "value": { "size": 30, "weight": 700, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "medium": { "value": { "size": 28, "weight": 700, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "small":  { "value": { "size": 26, "weight": 700, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" }
+    },
+    "title": {
+      "large":       { "value": { "size": 24, "weight": 700, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "medium":      { "value": { "size": 22, "weight": 700, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "small":       { "value": { "size": 20, "weight": 700, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "smallWeak":   { "value": { "size": 20, "weight": 600, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "smallXWeak":  { "value": { "size": 20, "weight": 500, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "xSmall":      { "value": { "size": 17, "weight": 700, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "xSmallWeak":  { "value": { "size": 17, "weight": 600, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "xSmallXWeak": { "value": { "size": 17, "weight": 500, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" }
+    },
+    "body": {
+      "large":        { "value": { "size": 19, "weight": 400, "lineHeight": 1.5, "letterSpacing": 0 }, "type": "typography" },
+      "medium":       { "value": { "size": 17, "weight": 400, "lineHeight": 1.5, "letterSpacing": 0 }, "type": "typography" },
+      "mediumStrong": { "value": { "size": 17, "weight": 500, "lineHeight": 1.5, "letterSpacing": 0 }, "type": "typography" },
+      "xSmall":       { "value": { "size": 13, "weight": 400, "lineHeight": 1.5, "letterSpacing": 0 }, "type": "typography" }
+    },
+    "subtext": {
+      "large":        { "value": { "size": 15, "weight": 400, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "medium":       { "value": { "size": 13, "weight": 400, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "mediumStrong": { "value": { "size": 13, "weight": 500, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" },
+      "small":        { "value": { "size": 12, "weight": 400, "lineHeight": 1.35, "letterSpacing": 0 }, "type": "typography" }
+    },
+    "label": {
+      "large":        { "value": { "size": 19, "weight": 600, "lineHeight": 1.252, "letterSpacing": 0 }, "type": "typography" },
+      "mediumStrong": { "value": { "size": 17, "weight": 700, "lineHeight": 1.252, "letterSpacing": 0 }, "type": "typography" },
+      "medium":       { "value": { "size": 17, "weight": 600, "lineHeight": 1.252, "letterSpacing": 0 }, "type": "typography" },
+      "mediumWeak":   { "value": { "size": 17, "weight": 500, "lineHeight": 1.252, "letterSpacing": 0 }, "type": "typography" },
+      "smallStrong":  { "value": { "size": 15, "weight": 700, "lineHeight": 1.252, "letterSpacing": 0 }, "type": "typography" },
+      "small":        { "value": { "size": 15, "weight": 600, "lineHeight": 1.252, "letterSpacing": 0 }, "type": "typography" },
+      "smallWeak":    { "value": { "size": 15, "weight": 500, "lineHeight": 1.252, "letterSpacing": 0 }, "type": "typography" },
+      "xSmall":       { "value": { "size": 13, "weight": 600, "lineHeight": 1.252, "letterSpacing": 0 }, "type": "typography" },
+      "xSmallWeak":   { "value": { "size": 13, "weight": 500, "lineHeight": 1.252, "letterSpacing": 0 }, "type": "typography" }
+    }
+  }
+}

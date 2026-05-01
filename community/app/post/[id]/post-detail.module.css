@@ -1,0 +1,399 @@
+.container {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-semantic-background-default);
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-semantic-border-default);
+  background: var(--color-semantic-background-default);
+}
+
+.backBtn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-semantic-icon-default);
+}
+
+.headerTitle {
+  flex: 1;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-semantic-text-strong);
+}
+
+.content {
+  flex: 1;
+  padding-bottom: 80px;
+}
+
+/* 게시글 */
+.postBody {
+  padding: 20px 20px 0;
+}
+
+.postMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.postAuthor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.postAuthorName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-semantic-text-strong);
+}
+
+.postTime {
+  font-size: 12px;
+  color: var(--color-semantic-text-tertiary);
+}
+
+.postTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-semantic-text-strong);
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
+
+.postContent {
+  font-size: 16px;
+  color: var(--color-semantic-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+}
+
+.postActions {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--color-semantic-border-default);
+  border-bottom: 1px solid var(--color-semantic-border-default);
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-semantic-text-tertiary);
+  font-weight: 500;
+}
+
+.actionBtnActive {
+  color: var(--color-semantic-fill-brand);
+}
+
+/* 투표 */
+.pollSection {
+  margin: 0 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-semantic-border-default);
+}
+
+.pollPrompt {
+  font-size: 14px;
+  color: var(--color-semantic-text-tertiary);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.voteOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.voteOption {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-semantic-border-default);
+  background: var(--color-semantic-background-default);
+  color: var(--color-semantic-text-strong);
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.15s;
+}
+
+.voteOption:active {
+  border-color: var(--color-semantic-fill-brand);
+  background: var(--color-semantic-fill-brandWeak);
+}
+
+/* 필터 탭 */
+.filterTabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.filterTabs::-webkit-scrollbar { display: none; }
+
+.filterTab {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--color-semantic-background-lower);
+  color: var(--color-semantic-text-secondary);
+  transition: all 0.1s;
+}
+
+.filterTabActive {
+  background: var(--color-semantic-fill-brand);
+  color: var(--color-base-static-white);
+}
+
+/* 결과 바 */
+.resultBars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.resultRow {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.resultLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resultText {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-semantic-text-secondary);
+}
+
+.resultTextSelected {
+  color: var(--color-semantic-fill-brand);
+  font-weight: 600;
+}
+
+.resultPct {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-semantic-text-strong);
+}
+
+.barTrack {
+  height: 8px;
+  background: var(--color-semantic-background-lower);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background: var(--color-semantic-fill-neutralWeak);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.barFillSelected {
+  background: var(--color-semantic-fill-brand);
+}
+
+.resultCount {
+  font-size: 12px;
+  color: var(--color-semantic-text-tertiary);
+}
+
+.totalCount {
+  font-size: 13px;
+  color: var(--color-semantic-text-tertiary);
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* 인구통계 브레이크다운 */
+.breakdownContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.breakdownGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.breakdownGroupLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-semantic-text-strong);
+  margin-bottom: 4px;
+}
+
+.breakdownGroupCount {
+  font-weight: 400;
+  color: var(--color-semantic-text-tertiary);
+}
+
+.breakdownRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breakdownOptionText {
+  font-size: 13px;
+  color: var(--color-semantic-text-secondary);
+  width: 80px;
+  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.barTrackSm {
+  flex: 1;
+  height: 6px;
+  background: var(--color-semantic-background-lower);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.barFillSm {
+  height: 100%;
+  background: var(--color-semantic-fill-neutralWeak);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.breakdownPct {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-semantic-text-strong);
+  width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.noData {
+  font-size: 14px;
+  color: var(--color-semantic-text-tertiary);
+  text-align: center;
+  padding: 24px 0;
+}
+
+/* 댓글 */
+.commentsSection {
+  padding: 20px;
+}
+
+.commentsSectionTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-semantic-text-strong);
+  margin-bottom: 16px;
+}
+
+.commentInputRow {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.commentInput {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-semantic-border-default);
+  background: var(--color-semantic-background-default);
+  font-size: 15px;
+  color: var(--color-semantic-text-strong);
+  outline: none;
+  resize: none;
+}
+
+.commentInput:focus {
+  border-color: var(--color-semantic-fill-brand);
+}
+
+.commentSubmitBtn {
+  padding: 0 16px;
+  background: var(--color-semantic-fill-brand);
+  color: var(--color-base-static-white);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.commentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.commentItem {
+  display: flex;
+  gap: 10px;
+}
+
+.commentBody {
+  flex: 1;
+}
+
+.commentAuthorRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.commentAuthorName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-semantic-text-strong);
+}
+
+.commentTime {
+  font-size: 12px;
+  color: var(--color-semantic-text-tertiary);
+}
+
+.commentContent {
+  font-size: 15px;
+  color: var(--color-semantic-text-secondary);
+  line-height: 1.5;
+}
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  gap: 8px;
+  color: var(--color-semantic-text-tertiary);
+}
