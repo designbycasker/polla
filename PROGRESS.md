@@ -4,6 +4,38 @@
 
 ---
 
+## 🚀 다음 세션 — 바로 시작할 것
+
+**1순위: Supabase 환경변수 설정 → 서비스 실제 오픈 가능**
+
+### Step 1. `community/.env.local` 파일 생성
+```
+AUTH_SECRET=
+KAKAO_CLIENT_ID=
+KAKAO_CLIENT_SECRET=
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+NEXTAUTH_URL=https://polla.pages.dev
+```
+
+### Step 2. Supabase 스키마 적용
+`community/supabase/schema.sql` → Supabase 대시보드 SQL Editor에서 실행
+
+### Step 3. Cloudflare Pages 환경변수 등록
+https://dash.cloudflare.com → Pages → polla → Settings → Environment variables → Step 1과 동일 값 입력
+
+### Step 4. 나머지 화면 완성
+- 탭바 네비게이션 컴포넌트
+- 검색 화면 (`/search`)
+- 알림 화면 (`/notifications`)
+- 프로필 화면 (`/profile`)
+
+### Step 5. 구글 애드센스 신청 (심사 2~4주 → 빨리 신청할수록 유리)
+https://adsense.google.com → 사이트 추가 → polla.pages.dev
+
+---
+
 ## 서비스 개요
 
 **Polla** — 인구통계 기반 여론/투표 커뮤니티
@@ -143,14 +175,46 @@ id, post_id, user_id, content, like_count, created_at
 - PC 레이아웃 (max-width 768px 중앙)
 
 ### 🔲 TODO (우선순위 순)
-1. **Supabase 환경변수 설정**
+
+> 조코딩 "AI Product Builder 1인 창업 부트캠프" 5주 커리큘럼 기준으로 정렬
+> 핵심 철학: **빠른 배포 → 유입 → 수익화 → 성장**
+
+#### 🟥 1단계 — 서비스 오픈 (1주차: 기획 → 첫 수익)
+1. **Supabase 환경변수 설정** ← 이것 없으면 서비스 불가
    - `.env.local`: `AUTH_SECRET`, `KAKAO_CLIENT_ID`, `KAKAO_CLIENT_SECRET`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXTAUTH_URL`
    - Cloudflare Pages 대시보드에도 동일하게 등록
    - `supabase/schema.sql` 실제 Supabase 프로젝트에 적용
-2. 검색 화면 (`/search`)
-3. 알림 화면 (`/notifications`)
-4. 프로필 화면 (`/profile`)
-5. 탭바 네비게이션 컴포넌트 (피드/검색/글쓰기/알림/프로필)
+2. **나머지 화면 완성**
+   - 탭바 네비게이션 컴포넌트 (피드/검색/글쓰기/알림/프로필)
+   - 검색 화면 (`/search`)
+   - 알림 화면 (`/notifications`)
+   - 프로필 화면 (`/profile`)
+3. **광고 수익화 준비** (트래픽 생기면 즉시 붙일 수 있게)
+   - 구글 애드센스 신청 (심사 2~4주 소요 → 지금 신청해야 함)
+   - 인피드 광고 슬롯 레이아웃 미리 잡아두기
+
+#### 🟧 2단계 — 유입 & 성장 (2주차: 유입 → 성장)
+4. **SEO 최적화**
+   - `metadata` 설정 (title, description, og:image)
+   - sitemap.xml, robots.txt 생성
+   - 구조화 데이터 (투표 결과 → 검색 노출)
+5. **데이터 분석 설치**
+   - Google Analytics 4 (GA4) 연동
+   - 퍼널 추적: 로그인 → 온보딩 → 첫 투표 → 재방문
+6. **바이럴 구조**
+   - 투표 결과 공유 기능 (카카오톡/X 공유)
+   - OG 이미지 동적 생성 (투표 결과 이미지)
+
+#### 🟨 3단계 — 수익화 (3주차: AI → 결제)
+7. **토스페이먼츠 결제 연동**
+   - 프리미엄 구독 (월 3,900~6,900원): 인구통계 풀 필터 해제
+8. **스폰서드 폴 상품 설계**
+   - 기업/기관이 돈 내고 폴 올리는 구조
+   - 폴 1개당 50~300만원 (데이터 리포트 포함)
+
+#### 🟩 4~5단계 — 스케일업
+9. **B2B 데이터 API** — 언론사, 선거캠프, 리서치사 대상
+10. **운영자 큐레이션 툴** — 이슈 폴 생성, 데이터 대시보드
 
 ---
 

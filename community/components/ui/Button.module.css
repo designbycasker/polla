@@ -19,11 +19,11 @@
   color: var(--color-base-static-white);
 }
 .secondary {
-  background: var(--color-semantic-fill-secondary);
+  background: var(--color-semantic-background-lower);
   color: var(--color-semantic-text-strong);
 }
 .tertiary {
-  background: var(--color-semantic-fill-tertiary);
+  background: var(--color-semantic-fill-neutralWeak);
   color: var(--color-semantic-text-strong);
 }
 .ghost {

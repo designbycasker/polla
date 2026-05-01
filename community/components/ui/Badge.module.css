@@ -9,7 +9,7 @@
 .small  { padding: 1px 6px; font-size: 12px; }
 
 .brand   { background: var(--color-semantic-fill-brand);   color: var(--color-base-static-white); }
-.success { background: var(--color-semantic-fill-positive); color: var(--color-base-static-white); }
-.warning { background: var(--color-semantic-fill-caution);  color: var(--color-base-static-white); }
-.danger  { background: var(--color-semantic-fill-negative); color: var(--color-base-static-white); }
-.neutral { background: var(--color-semantic-fill-secondary); color: var(--color-semantic-text-secondary); }
+.success { background: var(--color-semantic-fill-success);  color: var(--color-base-static-white); }
+.warning { background: var(--color-semantic-fill-warning);  color: var(--color-semantic-text-strong); }
+.danger  { background: var(--color-semantic-fill-danger);   color: var(--color-base-static-white); }
+.neutral { background: var(--color-semantic-background-lower); color: var(--color-semantic-text-secondary); }

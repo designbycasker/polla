@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polla — 정적 프리뷰</title>
+  <style>
+    /* ─── TDS 토큰 ─── */
+    :root {
+      --color-base-static-white: #ffffff;
+      --color-semantic-background-default: #ffffff;
+      --color-semantic-background-lower: #f2f4f6;
+      --color-semantic-background-elevated: #ffffff;
+      --color-semantic-background-pressed: #f2f4f6;
+      --color-semantic-text-strong: #191f28;
+      --color-semantic-text-primary: #000c1ecc;
+      --color-semantic-text-secondary: #031228b2;
+      --color-semantic-text-tertiary: #00132b94;
+      --color-semantic-text-quaternary: #03183275;
+      --color-semantic-text-brand: #2272eb;
+      --color-semantic-text-onFill: #ffffff;
+      --color-semantic-text-onFillBrand: #ffffff;
+      --color-semantic-icon-default: #00132b94;
+      --color-semantic-icon-tertiary: #0019364f;
+      --color-semantic-icon-brand: #3182f6;
+      --color-semantic-fill-brand: #3182f6;
+      --color-semantic-fill-brandWeak: #3182f629;
+      --color-semantic-fill-neutralWeak: #07194c0d;
+      --color-semantic-fill-neutral: #4e5968;
+      --color-semantic-fill-negative: #f04452;
+      --color-semantic-fill-danger: #f04452;
+      --color-semantic-border-default: #001b371a;
+    }
+
+    /* ─── 리셋 ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    a { text-decoration: none; color: inherit; }
+    textarea { font-family: inherit; }
+
+    /* ─── 레이아웃 ─── */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', sans-serif;
+      background: #e8eaf0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+    }
+
+    /* ─── 네비게이션 탭 ─── */
+    .nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 24px;
+      max-width: 760px;
+    }
+
+    .nav-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #fff;
+      color: #666;
+      border: 1.5px solid #e0e0e0;
+      transition: all 0.15s;
+    }
+
+    .nav-btn.active {
+      background: #191f28;
+      color: #fff;
+      border-color: #191f28;
+    }
+
+    /* ─── 폰 프레임 ─── */
+    .phone {
+      width: 390px;
+      height: 844px;
+      background: var(--color-semantic-background-default);
+      border-radius: 44px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18), 0 0 0 10px #1a1a1a, 0 0 0 12px #3a3a3a;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone-inner {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .phone-inner::-webkit-scrollbar { display: none; }
+
+    /* ─── 화면 숨김/표시 ─── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* ════════════════════════════
+       0. 홈
+    ════════════════════════════ */
+    .home-page {
+      min-height: 780px;
+      display: flex; flex-direction: column;
+      background: var(--color-semantic-background-default);
+    }
+    .home-header {
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px;
+      background: var(--color-semantic-background-default);
+    }
+    .home-logo {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .home-logo-mark {
+      width: 24px; height: 24px; border-radius: 7px;
+      background: var(--color-semantic-fill-brand);
+    }
+    .home-logo-text {
+      font-size: 17px; font-weight: 700;
+      color: var(--color-semantic-text-strong);
+      letter-spacing: -0.3px;
+    }
+    .home-login-btn {
+      font-size: 13px; font-weight: 600;
+      color: var(--color-semantic-text-secondary);
+    }
+
+    /* TDS Tab — 언더라인 방식 */
+    .home-tabs {
+      display: flex; gap: 0;
+      border-bottom: 1px solid var(--color-semantic-border-default);
+      overflow-x: auto; scrollbar-width: none;
+      background: var(--color-semantic-background-default);
+    }
+    .home-tabs::-webkit-scrollbar { display: none; }
+    .home-tab {
+      flex-shrink: 0;
+      padding: 0 14px; height: 51px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; font-weight: 600;
+      color: var(--color-semantic-text-tertiary);
+      position: relative;
+    }
+    .home-tab.active {
+      color: var(--color-semantic-text-strong);
+    }
+    .home-tab.active::after {
+      content: '';
+      position: absolute; bottom: 0; left: 14px; right: 14px;
+      height: 2px;
+      background: var(--color-semantic-text-strong);
+      border-radius: 1px;
+    }
+
+    /* 피처드 섹션 */
+    .featured-section {
+      background: var(--color-semantic-background-lower);
+      padding: 16px 20px 20px;
+    }
+    .featured-label {
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 14px;
+    }
+    .featured-label-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--color-semantic-fill-brand);
+    }
+    .featured-label-text {
+      font-size: 12px; font-weight: 600;
+      color: var(--color-semantic-text-brand);
+      letter-spacing: 0.3px;
+    }
+    .featured-card {
+      background: var(--color-semantic-background-elevated);
+      border-radius: 16px;
+      padding: 18px 18px 16px;
+      border: 1px solid var(--color-semantic-border-default);
+    }
+    .featured-card-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--color-semantic-text-strong);
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+    .featured-card-meta {
+      font-size: 12px; color: var(--color-semantic-text-tertiary);
+      margin-bottom: 16px;
+    }
+    .featured-bars { display: flex; flex-direction: column; gap: 10px; }
+    .featured-bar-row { display: flex; flex-direction: column; gap: 5px; }
+    .featured-bar-label {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .featured-bar-text {
+      font-size: 13px; font-weight: 500;
+      color: var(--color-semantic-text-secondary);
+    }
+    .featured-bar-text.lead {
+      color: var(--color-semantic-text-brand); font-weight: 700;
+    }
+    .featured-bar-pct {
+      font-size: 13px; font-weight: 700;
+      color: var(--color-semantic-text-strong);
+    }
+    .featured-bar-track {
+      height: 6px; background: var(--color-semantic-fill-neutralWeak);
+      border-radius: 3px; overflow: hidden;
+    }
+    .featured-bar-fill {
+      height: 100%; border-radius: 3px;
+      background: var(--color-semantic-fill-neutralWeak);
+    }
+    .featured-bar-fill.lead { background: var(--color-semantic-fill-brand); }
+    .featured-card-footer {
+      margin-top: 14px; padding-top: 12px;
+      border-top: 1px solid var(--color-semantic-border-default);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .featured-count {
+      font-size: 12px; color: var(--color-semantic-text-tertiary);
+    }
+    .featured-participate-btn {
+      font-size: 13px; font-weight: 600;
+      color: var(--color-semantic-text-brand);
+    }
+
+    /* 홈 포스트 리스트 */
+    .home-section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 20px 12px;
+    }
+    .home-section-title {
+      font-size: 16px; font-weight: 700;
+      color: var(--color-semantic-text-strong);
+    }
+    .home-section-more {
+      font-size: 13px; font-weight: 500;
+      color: var(--color-semantic-text-tertiary);
+    }
+    .home-post-list {
+      display: flex; flex-direction: column;
+      padding: 0 16px 100px;
+      gap: 8px;
+    }
+    .home-post-card {
+      padding: 16px;
+      background: var(--color-semantic-background-elevated);
+      border-radius: 16px;
+      border: 1px solid var(--color-semantic-border-default);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .home-post-top {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .home-post-category {
+      font-size: 11px; font-weight: 600;
+      color: var(--color-semantic-text-tertiary);
+      background: var(--color-semantic-background-lower);
+      padding: 3px 8px; border-radius: 100px;
+    }
+    .home-post-time {
+      font-size: 12px; color: var(--color-semantic-text-tertiary);
+    }
+    .home-post-title {
+      font-size: 16px; font-weight: 700;
+      color: var(--color-semantic-text-strong); line-height: 1.4;
+    }
+    .home-post-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 2px;
+    }
+    .home-post-author {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .home-post-stats {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .home-post-stat {
+      display: flex; align-items: center; gap: 3px;
+      font-size: 12px; color: var(--color-semantic-text-tertiary);
+    }
+    .home-vote-preview {
+      background: var(--color-semantic-background-lower);
+      border-radius: 10px; padding: 10px 12px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .home-vote-options {
+      display: flex; gap: 6px;
+    }
+    .home-vote-option {
+      font-size: 13px; font-weight: 500;
+      color: var(--color-semantic-text-secondary);
+    }
+    .home-vote-option.win {
+      color: var(--color-semantic-fill-brand); font-weight: 700;
+    }
+    .home-vote-count {
+      font-size: 12px; color: var(--color-semantic-text-tertiary);
+    }
+
+    /* Safari 주소바 */
+    .safari-bar {
+      height: 86px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--color-semantic-border-default);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px;
+      position: sticky; bottom: 0;
+    }
+    .safari-nav-btn {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-semantic-icon-default);
+    }
+    .safari-address-bar {
+      flex: 1; height: 40px; margin: 0 8px;
+      background: var(--color-semantic-fill-neutralWeak);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px;
+    }
+    .safari-address-text {
+      font-size: 15px; font-weight: 500;
+      color: var(--color-semantic-text-strong);
+    }
+    .safari-more-btn {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-semantic-icon-default);
+    }
+
+    /* ════════════════════════════
+       1. 로그인
+    ════════════════════════════ */
+    .login-page {
+      min-height: 844px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-semantic-background-default);
+      padding: 0 24px;
+    }
+    .login-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+    .login-logo { display: flex; align-items: center; gap: 10px; }
+    .login-logo-mark {
+      width: 36px; height: 36px;
+      background: var(--color-semantic-fill-brand);
+      border-radius: 10px;
+    }
+    .login-logo-text { font-size: 22px; font-weight: 700; color: var(--color-semantic-text-strong); }
+    .login-hero { display: flex; flex-direction: column; gap: 12px; }
+    .login-title { font-size: 28px; font-weight: 700; color: var(--color-semantic-text-strong); line-height: 1.3; }
+    .login-desc { font-size: 17px; color: var(--color-semantic-text-secondary); line-height: 1.5; }
+    .kakao-btn {
+      width: 100%; height: 56px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: #FEE500; color: #191919;
+      border-radius: 14px; font-size: 17px; font-weight: 700;
+    }
+    .login-terms {
+      font-size: 12px; color: var(--color-semantic-text-tertiary);
+      text-align: center; line-height: 1.6;
+    }
+    .login-terms a { color: var(--color-semantic-text-brand); text-decoration: underline; }
+
+    /* ════════════════════════════
+       2. 피드
+    ════════════════════════════ */
+    .feed-page {
+      min-height: 844px;
+      background: var(--color-semantic-background-default);
+      display: flex; flex-direction: column;
+    }
+    .feed-header {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--color-semantic-background-default);
+      border-bottom: 1px solid var(--color-semantic-border-default);
+    }
+    .feed-title { font-size: 20px; font-weight: 700; color: var(--color-semantic-text-strong); }
+    .feed-write-btn {
+      display: flex; align-items: center; gap: 4px;
+      padding: 8px 14px;
+      background: var(--color-semantic-fill-brand);
+      color: var(--color-base-static-white);
+      border-radius: 20px; font-size: 14px; font-weight: 600;
+    }
+    .feed-categories {
+      display: flex; gap: 8px;
+      padding: 12px 20px;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .feed-categories::-webkit-scrollbar { display: none; }
+    .category-chip {
+      flex-shrink: 0;
+      padding: 6px 14px; border-radius: 100px;
+      font-size: 14px; font-weight: 500;
+      background: var(--color-semantic-background-lower);
+      color: var(--color-semantic-text-secondary);
+    }
+    .category-chip.active {
+      background: var(--color-semantic-fill-brand);
+      color: var(--color-base-static-white);
+    }
+    .feed-list {
+      flex: 1; display: flex; flex-direction: column; gap: 8px;
+      padding: 8px 16px 100px;
+    }
+    .post-card {
+      display: flex; flex-direction: column; gap: 8px;
+      padding: 16px;
+      background: var(--color-semantic-background-elevated);
+      border-radius: 16px;
+      border: 1px solid var(--color-semantic-border-default);
+    }
+    .post-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .poll-badge {
+      display: flex; align-items: center; gap: 3px;
+      padding: 3px 8px;
+      background: var(--color-semantic-fill-brandWeak);
+      color: var(--color-semantic-fill-brand);
+      border-radius: 100px; font-size: 11px; font-weight: 600;
+    }
+    .post-time { font-size: 12px; color: var(--color-semantic-text-tertiary); }
+    .post-title {
+      font-size: 17px; font-weight: 700; color: var(--color-semantic-text-strong);
+      overflow: hidden; display: -webkit-box;
+      -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    }
+    .post-content {
+      font-size: 15px; color: var(--color-semantic-text-secondary);
+      overflow: hidden; display: -webkit-box;
+      -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+      line-height: 1.5;
+    }
+    .post-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 4px;
+    }
+    .post-author { display: flex; align-items: center; gap: 6px; }
+    .avatar {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--color-semantic-fill-brandWeak);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: var(--color-semantic-fill-brand);
+    }
+    .author-name { font-size: 13px; color: var(--color-semantic-text-secondary); font-weight: 500; }
+    .post-stats { display: flex; align-items: center; gap: 12px; }
+    .post-stat {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 13px; color: var(--color-semantic-text-tertiary);
+    }
+    .tab-bar {
+      position: sticky; bottom: 0;
+      display: flex; align-items: center; justify-content: space-around;
+      padding: 8px 0 8px;
+      background: var(--color-semantic-background-default);
+      border-top: 1px solid var(--color-semantic-border-default);
+    }
+    .tab-item {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      padding: 4px 16px;
+      color: var(--color-semantic-icon-tertiary);
+      font-size: 11px; font-weight: 500;
+    }
+    .tab-item.active { color: var(--color-semantic-icon-brand); }
+    .tab-center {
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--color-semantic-fill-brand);
+      color: var(--color-base-static-white);
+      border-radius: 50%;
+      margin-top: -16px;
+    }
+
+    /* ════════════════════════════
+       3. 온보딩
+    ════════════════════════════ */
+    .onboarding-page {
+      min-height: 844px;
+      display: flex; flex-direction: column;
+      padding: 24px 20px;
+      background: var(--color-semantic-background-default);
+    }
+    .onboarding-topbar {
+      display: grid;
+      grid-template-columns: 40px 1fr 40px;
+      align-items: center; gap: 8px;
+      margin-bottom: 32px;
+    }
+    .onboarding-back {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-semantic-text-strong);
+      border-radius: 8px;
+    }
+    .onboarding-progress { display: flex; gap: 6px; }
+    .progress-dot {
+      height: 4px; flex: 1; border-radius: 2px;
+      background: var(--color-semantic-border-default);
+    }
+    .progress-dot.active { background: var(--color-semantic-fill-brand); }
+    .onboarding-exit {
+      height: 32px; padding: 0 10px;
+      border-radius: 8px;
+      border: 1px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+      color: var(--color-semantic-text-secondary);
+      font-size: 13px; font-weight: 600;
+    }
+    .onboarding-header { margin-bottom: 36px; }
+    .onboarding-title {
+      font-size: 22px; font-weight: 700;
+      color: var(--color-semantic-text-strong);
+      margin-bottom: 8px; line-height: 1.3;
+    }
+    .onboarding-subtitle { font-size: 14px; color: var(--color-semantic-text-secondary); line-height: 1.5; }
+    .onboarding-options { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .option-btn {
+      width: 100%; padding: 16px 20px;
+      border-radius: 12px;
+      border: 1.5px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+      color: var(--color-semantic-text-strong);
+      font-size: 16px; font-weight: 600;
+      text-align: left;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .option-btn.selected {
+      border-color: var(--color-semantic-fill-brand);
+      background: var(--color-semantic-fill-brandWeak);
+      color: var(--color-semantic-fill-brand);
+      box-shadow: 0 0 0 1px var(--color-semantic-fill-brand);
+    }
+    .radio-mark {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1.5px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+      position: relative; flex-shrink: 0;
+    }
+    .radio-mark.selected {
+      border-color: var(--color-semantic-fill-brand);
+    }
+    .radio-mark.selected::after {
+      content: ''; position: absolute; inset: 4px;
+      border-radius: 50%;
+      background: var(--color-semantic-fill-brand);
+    }
+
+    /* 출생연도 */
+    .birth-year-row {
+      display: flex; align-items: center; gap: 10px;
+      border: 1.5px solid var(--color-semantic-border-default);
+      border-radius: 12px; padding: 0 16px;
+      background: var(--color-semantic-background-default);
+    }
+    .birth-year-input {
+      flex: 1; border: none; background: transparent;
+      color: var(--color-semantic-text-strong);
+      font-size: 20px; font-weight: 700;
+      height: 56px; outline: none; font-family: inherit;
+    }
+    .birth-year-unit { color: var(--color-semantic-text-secondary); font-size: 15px; }
+
+    /* 지역 그리드 */
+    .region-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    }
+    .region-btn {
+      padding: 14px 8px; border-radius: 10px;
+      border: 1.5px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+      color: var(--color-semantic-text-strong);
+      font-size: 14px; font-weight: 500;
+    }
+    .region-btn.selected {
+      border-color: var(--color-semantic-fill-brand);
+      background: var(--color-semantic-fill-brandWeak);
+      color: var(--color-semantic-fill-brand);
+    }
+
+    /* 정치성향 */
+    .political-row { display: flex; gap: 8px; }
+    .political-main-btn {
+      flex: 1; padding: 20px 8px;
+      border-radius: 12px;
+      border: 1.5px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+      color: var(--color-semantic-text-strong);
+      font-size: 15px; font-weight: 600; text-align: center;
+    }
+    .political-main-btn.selected {
+      border-color: var(--color-semantic-fill-brand);
+      background: var(--color-semantic-fill-brandWeak);
+      color: var(--color-semantic-fill-brand);
+      box-shadow: 0 0 0 1px var(--color-semantic-fill-brand);
+    }
+    .political-none-btn {
+      margin-top: 6px; padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+      color: var(--color-semantic-text-secondary);
+      font-size: 14px; font-weight: 500;
+      width: 100%;
+    }
+
+    /* 다음 버튼 */
+    .onboarding-footer { padding-top: 24px; }
+    .next-btn {
+      width: 100%; padding: 16px;
+      border-radius: 12px;
+      background: var(--color-semantic-fill-brand);
+      color: var(--color-semantic-text-onFillBrand);
+      font-size: 16px; font-weight: 600;
+    }
+
+    /* ════════════════════════════
+       4. 글쓰기
+    ════════════════════════════ */
+    .post-new-page {
+      min-height: 844px;
+      display: flex; flex-direction: column;
+      background: var(--color-semantic-background-default);
+    }
+    .post-new-header {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+      gap: 12px;
+    }
+    .post-new-back {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-semantic-icon-default);
+    }
+    .post-new-title { flex: 1; font-size: 17px; font-weight: 600; color: var(--color-semantic-text-strong); }
+    .post-new-submit {
+      padding: 8px 18px;
+      background: var(--color-semantic-fill-brand);
+      color: var(--color-base-static-white);
+      border-radius: 20px; font-size: 14px; font-weight: 600;
+    }
+    .post-section {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--color-semantic-border-default);
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      padding: 6px 14px; border-radius: 100px;
+      font-size: 14px; font-weight: 500;
+      background: var(--color-semantic-background-lower);
+      color: var(--color-semantic-text-secondary);
+    }
+    .chip.active {
+      background: var(--color-semantic-fill-brand);
+      color: var(--color-base-static-white);
+    }
+    .post-title-input {
+      width: 100%;
+      font-size: 20px; font-weight: 700;
+      color: var(--color-semantic-text-strong);
+      background: transparent; border: none; outline: none;
+      line-height: 1.4; font-family: inherit;
+    }
+    .post-title-input::placeholder { color: var(--color-semantic-text-quaternary); font-weight: 400; }
+    .post-content-input {
+      width: 100%;
+      font-size: 16px; color: var(--color-semantic-text-secondary);
+      background: transparent; border: none; outline: none;
+      resize: none; line-height: 1.6; font-family: inherit;
+    }
+    .post-content-input::placeholder { color: var(--color-semantic-text-quaternary); }
+    /* 투표 토글 */
+    .poll-toggle-section {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--color-semantic-border-default);
+    }
+    .poll-toggle-info { display: flex; align-items: center; gap: 12px; }
+    .poll-toggle-icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--color-semantic-fill-brandWeak);
+      color: var(--color-semantic-fill-brand);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .poll-toggle-title { font-size: 15px; font-weight: 600; color: var(--color-semantic-text-strong); }
+    .poll-toggle-desc { font-size: 13px; color: var(--color-semantic-text-tertiary); margin-top: 2px; }
+    .toggle {
+      width: 50px; height: 28px; border-radius: 14px;
+      background: var(--color-semantic-fill-neutralWeak);
+      position: relative; flex-shrink: 0; cursor: pointer;
+      border: 1px solid var(--color-semantic-border-default);
+      transition: background 0.2s;
+    }
+    .toggle.on { background: var(--color-semantic-fill-brand); border-color: var(--color-semantic-fill-brand); }
+    .toggle-thumb {
+      position: absolute; top: 3px; left: 3px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: white; transition: transform 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .toggle.on .toggle-thumb { transform: translateX(22px); }
+    /* 투표 선택지 섹션 */
+    .poll-section {
+      padding: 16px 20px;
+      display: flex; flex-direction: column; gap: 12px;
+      border-bottom: 1px solid var(--color-semantic-border-default);
+    }
+    .poll-question-input {
+      width: 100%; padding: 12px 16px;
+      border-radius: 10px;
+      border: 1.5px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+      font-size: 15px; color: var(--color-semantic-text-strong);
+      outline: none; font-family: inherit;
+    }
+    .options-list { display: flex; flex-direction: column; gap: 8px; }
+    .option-row { display: flex; align-items: center; gap: 10px; }
+    .option-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--color-semantic-background-lower);
+      color: var(--color-semantic-text-tertiary);
+      font-size: 12px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .option-input {
+      flex: 1; padding: 12px 14px;
+      border-radius: 10px;
+      border: 1.5px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+      font-size: 15px; color: var(--color-semantic-text-strong);
+      outline: none; font-family: inherit;
+    }
+    .add-option-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 10px 14px; border-radius: 10px;
+      border: 1.5px dashed var(--color-semantic-border-default);
+      color: var(--color-semantic-text-tertiary);
+      font-size: 14px; font-weight: 500;
+      background: transparent; cursor: pointer;
+    }
+
+    /* ════════════════════════════
+       5. 게시글 상세
+    ════════════════════════════ */
+    .post-detail-page {
+      min-height: 844px;
+      display: flex; flex-direction: column;
+      background: var(--color-semantic-background-default);
+    }
+    .detail-header {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+    }
+    .detail-header-title { flex: 1; font-size: 17px; font-weight: 600; color: var(--color-semantic-text-strong); }
+    .post-body { padding: 20px 20px 0; }
+    .post-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+    .post-meta-author { display: flex; align-items: center; gap: 8px; }
+    .post-meta-name { font-size: 14px; font-weight: 600; color: var(--color-semantic-text-strong); }
+    .post-meta-time { font-size: 12px; color: var(--color-semantic-text-tertiary); }
+    .detail-title {
+      font-size: 22px; font-weight: 700; color: var(--color-semantic-text-strong);
+      line-height: 1.35; margin-bottom: 14px;
+    }
+    .detail-content {
+      font-size: 16px; color: var(--color-semantic-text-secondary);
+      line-height: 1.7; margin-bottom: 20px;
+    }
+    .post-actions {
+      display: flex; gap: 16px; padding: 12px 0;
+      border-top: 1px solid var(--color-semantic-border-default);
+      border-bottom: 1px solid var(--color-semantic-border-default);
+    }
+    .action-btn { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--color-semantic-text-tertiary); font-weight: 500; }
+    .action-btn.active { color: var(--color-semantic-fill-brand); }
+    .vote-section {
+      margin: 0 20px; padding: 16px 0;
+      border-bottom: 1px solid var(--color-semantic-border-default);
+    }
+    .vote-prompt { font-size: 14px; color: var(--color-semantic-text-tertiary); margin-bottom: 12px; text-align: center; }
+    .vote-options { display: flex; flex-direction: column; gap: 8px; }
+    .vote-option {
+      width: 100%; padding: 14px 18px;
+      border-radius: 12px;
+      border: 1.5px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+      color: var(--color-semantic-text-strong);
+      font-size: 15px; font-weight: 500; text-align: left;
+      cursor: pointer;
+    }
+
+    /* 결과 */
+    .result-section {
+      margin: 0 20px; padding: 16px 0;
+      border-bottom: 1px solid var(--color-semantic-border-default);
+    }
+    .filter-tabs {
+      display: flex; gap: 4px; margin-bottom: 16px;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .filter-tabs::-webkit-scrollbar { display: none; }
+    .filter-tab {
+      flex-shrink: 0; padding: 6px 14px; border-radius: 100px;
+      font-size: 13px; font-weight: 500;
+      background: var(--color-semantic-background-lower);
+      color: var(--color-semantic-text-secondary);
+    }
+    .filter-tab.active {
+      background: var(--color-semantic-fill-brand);
+      color: var(--color-base-static-white);
+    }
+    .result-bars { display: flex; flex-direction: column; gap: 12px; }
+    .result-row { display: flex; flex-direction: column; gap: 5px; }
+    .result-label { display: flex; justify-content: space-between; align-items: center; }
+    .result-text { font-size: 14px; font-weight: 500; color: var(--color-semantic-text-secondary); }
+    .result-text.selected { color: var(--color-semantic-fill-brand); font-weight: 600; }
+    .result-pct { font-size: 14px; font-weight: 700; color: var(--color-semantic-text-strong); }
+    .bar-track { height: 8px; background: var(--color-semantic-background-lower); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--color-semantic-fill-neutralWeak); border-radius: 4px; }
+    .bar-fill.selected { background: var(--color-semantic-fill-brand); }
+    .total-count { font-size: 13px; color: var(--color-semantic-text-tertiary); text-align: center; margin-top: 4px; }
+
+    /* 댓글 */
+    .comments-section { padding: 20px; }
+    .comments-title { font-size: 16px; font-weight: 700; color: var(--color-semantic-text-strong); margin-bottom: 16px; }
+    .comment-input-row { display: flex; gap: 10px; margin-bottom: 20px; }
+    .comment-input {
+      flex: 1; padding: 12px 14px; border-radius: 12px;
+      border: 1.5px solid var(--color-semantic-border-default);
+      background: var(--color-semantic-background-default);
+      font-size: 15px; color: var(--color-semantic-text-strong);
+      outline: none; resize: none; font-family: inherit;
+    }
+    .comment-submit-btn {
+      padding: 0 16px;
+      background: var(--color-semantic-fill-brand);
+      color: var(--color-base-static-white);
+      border-radius: 12px; font-size: 14px; font-weight: 600;
+    }
+    .comments-list { display: flex; flex-direction: column; gap: 16px; }
+    .comment-item { display: flex; gap: 10px; }
+    .comment-body { flex: 1; }
+    .comment-author-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .comment-author-name { font-size: 13px; font-weight: 600; color: var(--color-semantic-text-strong); }
+    .comment-time { font-size: 12px; color: var(--color-semantic-text-tertiary); }
+    .comment-content { font-size: 15px; color: var(--color-semantic-text-secondary); line-height: 1.5; }
+
+    /* 온보딩 스텝 분기 */
+    .step { display: none; }
+    .step.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- 네비게이션 -->
+  <nav class="nav">
+    <button class="nav-btn" onclick="showScreen('home')">🏠 홈</button>
+    <button class="nav-btn active" onclick="showScreen('login')">🔑 로그인</button>
+    <button class="nav-btn" onclick="showScreen('feed')">📋 피드</button>
+    <button class="nav-btn" onclick="showScreen('onboarding')">👤 온보딩</button>
+    <button class="nav-btn" onclick="showScreen('post-new')">✏️ 글쓰기</button>
+    <button class="nav-btn" onclick="showScreen('post-detail')">🗳️ 게시글 상세</button>
+  </nav>
+
+  <!-- 폰 프레임 -->
+  <div class="phone">
+    <div class="phone-inner">
+
+      <!-- ⓪ 홈 -->
+      <div id="screen-home" class="screen">
+        <div class="home-page">
+
+          <!-- 헤더 -->
+          <header class="home-header">
+            <div class="home-logo">
+              <div class="home-logo-mark"></div>
+              <span class="home-logo-text">Polla</span>
+            </div>
+            <button class="home-login-btn">로그인 / 회원가입</button>
+          </header>
+
+          <!-- 카테고리 탭 -->
+          <div class="home-tabs">
+            <div class="home-tab active">전체</div>
+            <div class="home-tab">정치</div>
+            <div class="home-tab">사회</div>
+            <div class="home-tab">게임</div>
+            <div class="home-tab">스포츠</div>
+            <div class="home-tab">연예</div>
+            <div class="home-tab">자유</div>
+          </div>
+
+          <!-- 피처드: 대통령 지지율 같은 큐레이션 콘텐츠 -->
+          <div class="featured-section">
+            <div class="featured-label">
+              <div class="featured-label-dot"></div>
+              <span class="featured-label-text">오늘의 이슈</span>
+            </div>
+            <div class="featured-card">
+              <div class="featured-card-title">현재 대통령 국정 수행 지지율은?</div>
+              <div class="featured-card-meta">실시간 집계 · 38,241명 참여</div>
+              <div class="featured-bars">
+                <div class="featured-bar-row">
+                  <div class="featured-bar-label">
+                    <span class="featured-bar-text lead">잘하고 있다</span>
+                    <span class="featured-bar-pct">47%</span>
+                  </div>
+                  <div class="featured-bar-track">
+                    <div class="featured-bar-fill lead" style="width:47%"></div>
+                  </div>
+                </div>
+                <div class="featured-bar-row">
+                  <div class="featured-bar-label">
+                    <span class="featured-bar-text">잘못하고 있다</span>
+                    <span class="featured-bar-pct">38%</span>
+                  </div>
+                  <div class="featured-bar-track">
+                    <div class="featured-bar-fill" style="width:38%"></div>
+                  </div>
+                </div>
+                <div class="featured-bar-row">
+                  <div class="featured-bar-label">
+                    <span class="featured-bar-text">모르겠다</span>
+                    <span class="featured-bar-pct">15%</span>
+                  </div>
+                  <div class="featured-bar-track">
+                    <div class="featured-bar-fill" style="width:15%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="featured-card-footer">
+                <span class="featured-count">나이·성별·지역별 결과 보기</span>
+                <button class="featured-participate-btn">투표하기 →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 실시간 인기 글 -->
+          <div class="home-section-header">
+            <span class="home-section-title">실시간 인기</span>
+            <span class="home-section-more">더보기</span>
+          </div>
+          <div class="home-post-list">
+
+            <!-- 카드 1: 투표 있는 글 -->
+            <div class="home-post-card">
+              <div class="home-post-top">
+                <span class="home-post-category">정치</span>
+                <span class="home-post-time">23분 전</span>
+              </div>
+              <div class="home-post-title">다음 대선 지지 후보는 누구인가요?</div>
+              <div class="home-vote-preview">
+                <div class="home-vote-options">
+                  <span class="home-vote-option win">이재명 42%</span>
+                  <span style="color:var(--color-semantic-text-tertiary);font-size:13px;">·</span>
+                  <span class="home-vote-option">홍준표 31%</span>
+                  <span style="color:var(--color-semantic-text-tertiary);font-size:13px;">·</span>
+                  <span class="home-vote-option">기타 27%</span>
+                </div>
+              </div>
+              <div class="home-post-footer">
+                <div class="home-post-author">
+                  <div class="avatar">박</div>
+                  <span class="author-name">박정치</span>
+                </div>
+                <div class="home-post-stats">
+                  <span class="home-post-stat">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    142
+                  </span>
+                  <span class="home-post-stat">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    89
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 카드 2 -->
+            <div class="home-post-card">
+              <div class="home-post-top">
+                <span class="home-post-category">사회</span>
+                <span class="home-post-time">1시간 전</span>
+              </div>
+              <div class="home-post-title">주 4일제, 당신의 생각은?</div>
+              <div class="home-vote-preview">
+                <div class="home-vote-options">
+                  <span class="home-vote-option win">찬성 68%</span>
+                  <span style="color:var(--color-semantic-text-tertiary);font-size:13px;">·</span>
+                  <span class="home-vote-option">반대 32%</span>
+                </div>
+              </div>
+              <div class="home-post-footer">
+                <div class="home-post-author">
+                  <div class="avatar">최</div>
+                  <span class="author-name">최워라밸</span>
+                </div>
+                <div class="home-post-stats">
+                  <span class="home-post-stat">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    87
+                  </span>
+                  <span class="home-post-stat">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    34
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 카드 3: 일반 글 -->
+            <div class="home-post-card">
+              <div class="home-post-top">
+                <span class="home-post-category">게임</span>
+                <span class="home-post-time">3시간 전</span>
+              </div>
+              <div class="home-post-title">롤 시즌 14 랭크 시스템 개편 어떻게 생각하세요?</div>
+              <div class="home-post-footer">
+                <div class="home-post-author">
+                  <div class="avatar">이</div>
+                  <span class="author-name">이게이머</span>
+                </div>
+                <div class="home-post-stats">
+                  <span class="home-post-stat">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    41
+                  </span>
+                  <span class="home-post-stat">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    22
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Safari 주소바 -->
+          <div class="safari-bar">
+            <div class="safari-nav-btn">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </div>
+            <div class="safari-address-bar">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span class="safari-address-text">polla.com</span>
+            </div>
+            <div class="safari-more-btn">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="19" r="1.5" fill="currentColor"/></svg>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ① 로그인 -->
+      <div id="screen-login" class="screen active">
+        <div class="login-page">
+          <div class="login-container">
+            <div class="login-logo">
+              <div class="login-logo-mark"></div>
+              <h1 class="login-logo-text">Polla</h1>
+            </div>
+            <div class="login-hero">
+              <h2 class="login-title">다양한 생각을<br>함께 탐색해요</h2>
+              <p class="login-desc">나와 비슷한 사람들은 어떻게 생각할까?<br>투표로 확인하고 이야기 나눠요</p>
+            </div>
+            <div>
+              <button class="kakao-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.636 1.638 4.95 4.125 6.328l-.938 3.375a.375.375 0 0 0 .563.407L9.937 18.3A10.5 10.5 0 0 0 12 18.5C17.523 18.5 22 15.023 22 10.5S17.523 3 12 3z"/></svg>
+                카카오로 시작하기
+              </button>
+            </div>
+            <p class="login-terms">시작하면 <a href="#">이용약관</a> 및 <a href="#">개인정보처리방침</a>에<br>동의하는 것으로 간주합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ② 피드 -->
+      <div id="screen-feed" class="screen">
+        <div class="feed-page">
+          <header class="feed-header">
+            <h1 class="feed-title">Polla</h1>
+            <div class="feed-write-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              글쓰기
+            </div>
+          </header>
+          <div class="feed-categories">
+            <span class="category-chip active">전체</span>
+            <span class="category-chip">정치</span>
+            <span class="category-chip">사회</span>
+            <span class="category-chip">게임</span>
+            <span class="category-chip">스포츠</span>
+            <span class="category-chip">연예</span>
+            <span class="category-chip">자유</span>
+          </div>
+          <main class="feed-list">
+            <!-- 카드 1 -->
+            <div class="post-card">
+              <div class="post-card-header">
+                <div class="poll-badge">🗳️ 투표</div>
+                <span class="post-time">2시간 전</span>
+              </div>
+              <div class="post-title">요즘 물가 어떻게 생각하세요?</div>
+              <div class="post-content">장바구니 물가가 너무 올라서 장보기가 무섭네요. 다들 체감 어떠세요?</div>
+              <div class="post-footer">
+                <div class="post-author">
+                  <div class="avatar">김</div>
+                  <span class="author-name">김민준</span>
+                </div>
+                <div class="post-stats">
+                  <span class="post-stat">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    24
+                  </span>
+                  <span class="post-stat">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    8
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- 카드 2 -->
+            <div class="post-card">
+              <div class="post-card-header">
+                <span></span>
+                <span class="post-time">5시간 전</span>
+              </div>
+              <div class="post-title">리그 오브 레전드 시즌 14 어떻게 봄?</div>
+              <div class="post-content">이번 시즌 변경사항 중 맵 변경이 제일 큰 것 같은데 여러분 의견은요?</div>
+              <div class="post-footer">
+                <div class="post-author">
+                  <div class="avatar">이</div>
+                  <span class="author-name">이게이머</span>
+                </div>
+                <div class="post-stats">
+                  <span class="post-stat">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    12
+                  </span>
+                  <span class="post-stat">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    31
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- 카드 3 -->
+            <div class="post-card">
+              <div class="post-card-header">
+                <div class="poll-badge">🗳️ 투표</div>
+                <span class="post-time">1일 전</span>
+              </div>
+              <div class="post-title">다음 대선 어느 당을 지지하실 건가요?</div>
+              <div class="post-content">조용히 생각 여쭤봐요. 정당 지지율 궁금합니다.</div>
+              <div class="post-footer">
+                <div class="post-author">
+                  <div class="avatar">박</div>
+                  <span class="author-name">박정치</span>
+                </div>
+                <div class="post-stats">
+                  <span class="post-stat">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    87
+                  </span>
+                  <span class="post-stat">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    54
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- 카드 4 -->
+            <div class="post-card">
+              <div class="post-card-header">
+                <span></span>
+                <span class="post-time">2일 전</span>
+              </div>
+              <div class="post-title">주 4일제 도입하면 어떨까요?</div>
+              <div class="post-content">요즘 주 4일제 얘기가 많이 나오던데 찬반 의견 궁금합니다.</div>
+              <div class="post-footer">
+                <div class="post-author">
+                  <div class="avatar">최</div>
+                  <span class="author-name">최워라밸</span>
+                </div>
+                <div class="post-stats">
+                  <span class="post-stat">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    41
+                  </span>
+                  <span class="post-stat">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    19
+                  </span>
+                </div>
+              </div>
+            </div>
+          </main>
+          <nav class="tab-bar">
+            <div class="tab-item active">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+              <span>홈</span>
+            </div>
+            <div class="tab-item">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span>검색</span>
+            </div>
+            <div class="tab-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <div class="tab-item">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span>알림</span>
+            </div>
+            <div class="tab-item">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>프로필</span>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <!-- ③ 온보딩 -->
+      <div id="screen-onboarding" class="screen">
+        <div class="onboarding-page" id="onboarding-container">
+
+          <!-- 스텝 1: 성별 -->
+          <div class="step active" id="step-1">
+            <div class="onboarding-topbar">
+              <div style="width:40px;height:40px;"></div>
+              <div class="onboarding-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+              </div>
+              <button class="onboarding-exit">건너뛰기</button>
+            </div>
+            <div class="onboarding-header">
+              <div class="onboarding-title">성별을 알려주세요</div>
+              <div class="onboarding-subtitle">투표 결과를 성별로 비교할 때 사용돼요</div>
+            </div>
+            <div class="onboarding-options">
+              <button class="option-btn selected">남성 <div class="radio-mark selected"></div></button>
+              <button class="option-btn">여성 <div class="radio-mark"></div></button>
+              <button class="option-btn">기타 <div class="radio-mark"></div></button>
+            </div>
+            <div class="onboarding-footer">
+              <button class="next-btn" onclick="showStep(2)">다음</button>
+            </div>
+          </div>
+
+          <!-- 스텝 2: 출생연도 -->
+          <div class="step" id="step-2">
+            <div class="onboarding-topbar">
+              <button class="onboarding-back" onclick="showStep(1)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <div class="onboarding-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+              </div>
+              <button class="onboarding-exit">건너뛰기</button>
+            </div>
+            <div class="onboarding-header">
+              <div class="onboarding-title">출생연도를 입력해주세요</div>
+              <div class="onboarding-subtitle">연령대별 투표 결과를 볼 때 사용돼요</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
+              <div class="birth-year-row">
+                <input class="birth-year-input" type="text" placeholder="예) 1995" maxlength="4" value="1995" />
+                <span class="birth-year-unit">년생</span>
+              </div>
+            </div>
+            <div class="onboarding-footer">
+              <button class="next-btn" onclick="showStep(3)">다음</button>
+            </div>
+          </div>
+
+          <!-- 스텝 3: 지역 -->
+          <div class="step" id="step-3">
+            <div class="onboarding-topbar">
+              <button class="onboarding-back" onclick="showStep(2)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <div class="onboarding-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+              </div>
+              <button class="onboarding-exit">건너뛰기</button>
+            </div>
+            <div class="onboarding-header">
+              <div class="onboarding-title">거주 지역을 선택해주세요</div>
+              <div class="onboarding-subtitle">지역별 투표 결과를 볼 때 사용돼요</div>
+            </div>
+            <div class="region-grid" style="flex:1;">
+              <button class="region-btn selected">서울</button>
+              <button class="region-btn">경기</button>
+              <button class="region-btn">인천</button>
+              <button class="region-btn">부산</button>
+              <button class="region-btn">대구</button>
+              <button class="region-btn">광주</button>
+              <button class="region-btn">대전</button>
+              <button class="region-btn">울산</button>
+              <button class="region-btn">세종</button>
+              <button class="region-btn">강원</button>
+              <button class="region-btn">충북</button>
+              <button class="region-btn">충남</button>
+              <button class="region-btn">전북</button>
+              <button class="region-btn">전남</button>
+              <button class="region-btn">경북</button>
+              <button class="region-btn">경남</button>
+              <button class="region-btn">제주</button>
+            </div>
+            <div class="onboarding-footer">
+              <button class="next-btn" onclick="showStep(4)">다음</button>
+            </div>
+          </div>
+
+          <!-- 스텝 4: 정치성향 -->
+          <div class="step" id="step-4">
+            <div class="onboarding-topbar">
+              <button class="onboarding-back" onclick="showStep(3)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <div class="onboarding-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+                <div class="progress-dot active"></div>
+              </div>
+              <button class="onboarding-exit">건너뛰기</button>
+            </div>
+            <div class="onboarding-header">
+              <div class="onboarding-title">정치 성향을 알려주세요</div>
+              <div class="onboarding-subtitle">정치 성향별 여론을 비교할 때 사용돼요</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px;flex:1;">
+              <div class="political-row">
+                <button class="political-main-btn selected">진보</button>
+                <button class="political-main-btn">중도</button>
+                <button class="political-main-btn">보수</button>
+              </div>
+              <button class="political-none-btn">관심없음</button>
+            </div>
+            <div class="onboarding-footer">
+              <button class="next-btn">완료</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ④ 글쓰기 -->
+      <div id="screen-post-new" class="screen">
+        <div class="post-new-page">
+          <header class="post-new-header">
+            <div class="post-new-back">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            </div>
+            <div class="post-new-title">새 글 작성</div>
+            <button class="post-new-submit">올리기</button>
+          </header>
+          <div class="post-section">
+            <div class="chips">
+              <span class="chip active">정치</span>
+              <span class="chip">사회</span>
+              <span class="chip">게임</span>
+              <span class="chip">스포츠</span>
+              <span class="chip">연예</span>
+              <span class="chip">자유</span>
+            </div>
+          </div>
+          <div class="post-section">
+            <input class="post-title-input" type="text" placeholder="제목을 입력하세요" value="다음 선거 어떻게 보세요?" />
+          </div>
+          <div class="post-section">
+            <textarea class="post-content-input" rows="4" placeholder="내용을 입력하세요">이번 선거 결과가 어떻게 될 것 같으신가요? 개인적으로는...</textarea>
+          </div>
+          <div class="poll-toggle-section">
+            <div class="poll-toggle-info">
+              <div class="poll-toggle-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+              </div>
+              <div>
+                <div class="poll-toggle-title">투표 첨부</div>
+                <div class="poll-toggle-desc">독자들이 투표에 참여할 수 있어요</div>
+              </div>
+            </div>
+            <div class="toggle on" id="poll-toggle" onclick="togglePoll()">
+              <div class="toggle-thumb"></div>
+            </div>
+          </div>
+          <div class="poll-section" id="poll-section">
+            <input class="poll-question-input" type="text" placeholder="투표 질문을 입력하세요" value="당신의 선택은?" />
+            <div class="options-list">
+              <div class="option-row">
+                <div class="option-num">1</div>
+                <input class="option-input" type="text" placeholder="선택지 1" value="여당 승리" />
+              </div>
+              <div class="option-row">
+                <div class="option-num">2</div>
+                <input class="option-input" type="text" placeholder="선택지 2" value="야당 승리" />
+              </div>
+              <div class="option-row">
+                <div class="option-num">3</div>
+                <input class="option-input" type="text" placeholder="선택지 3" value="박빙" />
+              </div>
+            </div>
+            <button class="add-option-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              선택지 추가
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑤ 게시글 상세 -->
+      <div id="screen-post-detail" class="screen">
+        <div class="post-detail-page">
+          <header class="detail-header">
+            <div class="post-new-back">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </div>
+            <div class="detail-header-title">게시글</div>
+          </header>
+          <div class="post-body">
+            <div class="post-meta">
+              <div class="post-meta-author">
+                <div class="avatar">박</div>
+                <span class="post-meta-name">박정치</span>
+              </div>
+              <span class="post-meta-time">1일 전</span>
+            </div>
+            <div class="detail-title">다음 대선 어느 당을 지지하실 건가요?</div>
+            <div class="detail-content">조용히 생각 여쭤봐요. 정당 지지율 궁금합니다. 요즘 정치 상황이 너무 혼란스러워서 여러분들 생각이 궁금하네요.</div>
+            <div class="post-actions">
+              <button class="action-btn active">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                87
+              </button>
+              <button class="action-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                54
+              </button>
+            </div>
+          </div>
+
+          <!-- 투표 (참여 전) -->
+          <div class="vote-section">
+            <div class="vote-prompt">투표에 참여해 결과를 확인하세요</div>
+            <div class="vote-options">
+              <button class="vote-option">여당</button>
+              <button class="vote-option">야당</button>
+              <button class="vote-option">아직 모르겠다</button>
+            </div>
+          </div>
+
+          <!-- 결과 (투표 후) -->
+          <div class="result-section">
+            <div class="filter-tabs">
+              <span class="filter-tab active">전체</span>
+              <span class="filter-tab">성별</span>
+              <span class="filter-tab">연령</span>
+              <span class="filter-tab">지역</span>
+              <span class="filter-tab">정치성향</span>
+            </div>
+            <div class="result-bars">
+              <div class="result-row">
+                <div class="result-label">
+                  <span class="result-text selected">여당</span>
+                  <span class="result-pct">43%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill selected" style="width:43%"></div></div>
+              </div>
+              <div class="result-row">
+                <div class="result-label">
+                  <span class="result-text">야당</span>
+                  <span class="result-pct">38%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:38%"></div></div>
+              </div>
+              <div class="result-row">
+                <div class="result-label">
+                  <span class="result-text">아직 모르겠다</span>
+                  <span class="result-pct">19%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:19%"></div></div>
+              </div>
+            </div>
+            <div class="total-count">총 1,284명 참여</div>
+          </div>
+
+          <!-- 댓글 -->
+          <div class="comments-section">
+            <div class="comments-title">댓글 54</div>
+            <div class="comment-input-row">
+              <textarea class="comment-input" rows="1" placeholder="댓글을 입력하세요"></textarea>
+              <button class="comment-submit-btn">등록</button>
+            </div>
+            <div class="comments-list">
+              <div class="comment-item">
+                <div class="avatar">이</div>
+                <div class="comment-body">
+                  <div class="comment-author-row">
+                    <span class="comment-author-name">이서울</span>
+                    <span class="comment-time">3시간 전</span>
+                  </div>
+                  <div class="comment-content">솔직히 이번엔 야당이 더 잘할 것 같아요. 지금 경제 상황이...</div>
+                </div>
+              </div>
+              <div class="comment-item">
+                <div class="avatar">김</div>
+                <div class="comment-body">
+                  <div class="comment-author-row">
+                    <span class="comment-author-name">김부산</span>
+                    <span class="comment-time">5시간 전</span>
+                  </div>
+                  <div class="comment-content">지역마다 생각이 많이 다를 것 같네요 ㅎㅎ</div>
+                </div>
+              </div>
+              <div class="comment-item">
+                <div class="avatar">최</div>
+                <div class="comment-body">
+                  <div class="comment-author-row">
+                    <span class="comment-author-name">최중립</span>
+                    <span class="comment-time">8시간 전</span>
+                  </div>
+                  <div class="comment-content">아직 결정 못 했어요. 공약 더 지켜봐야 할 것 같아요.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function showScreen(name) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('screen-' + name).classList.add('active');
+      document.querySelectorAll('.nav-btn').forEach(b => {
+        if (b.getAttribute('onclick').includes("'" + name + "'")) b.classList.add('active');
+      });
+      document.querySelector('.phone-inner').scrollTop = 0;
+    }
+
+    function showStep(n) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step-' + n).classList.add('active');
+    }
+
+    function togglePoll() {
+      const t = document.getElementById('poll-toggle');
+      const s = document.getElementById('poll-section');
+      t.classList.toggle('on');
+      s.style.display = t.classList.contains('on') ? 'flex' : 'none';
+    }
+  </script>
+
+</body>
+</html>

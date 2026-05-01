@@ -3,12 +3,12 @@
   flex-direction: column;
   gap: 8px;
   padding: 16px;
-  background: var(--color-semantic-background-elevated);
+  background: var(--color-semantic-background-default);
   border-radius: 16px;
   transition: background 0.1s;
 }
 
-.card:active { background: var(--color-semantic-background-pressed); }
+.card:active { background: var(--color-semantic-background-lower); }
 
 .header {
   display: flex;
